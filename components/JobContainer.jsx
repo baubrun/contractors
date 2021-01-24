@@ -23,11 +23,6 @@ const JobContainer = () => {
     storeData: [],
   });
 
-  const onDateChange = (evt, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setValues({...values, date: currentDate});
-  };
 
   useEffect(() => {
     dispatch(listStores());

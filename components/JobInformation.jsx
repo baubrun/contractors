@@ -10,29 +10,36 @@ const JobInformation = (props) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
+    setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
-
-
 
   return (
     <>
       <Content>
         <Form>
           <Item style={styles.inputs}>
-            <View style={styles.label}>
-              <Button onPress={() => setShow(true)} title="ENTER DATE" />
+
+            <View style={styles.dateLabel}>
+              <Button 
+              style={styles.dateBtn}
+              onPress={() => 
+              setShow(true)} 
+              title="JOB DATE" />
             </View>
             {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          display="default"
-          onChange={onChange}
-        />
-      )}
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode="date"
+                display="default"
+                onChange={onChange}
+              />
+            )}
+
+            <View>
+              <Label >{date.toString().substring(4, 15)}</Label>
+            </View>
           </Item>
 
           <Item style={styles.inputs}>
@@ -71,6 +78,16 @@ const JobInformation = (props) => {
 export default JobInformation;
 
 export const styles = StyleSheet.create({
+  dateLabel:{
+    marginRight: 100,
+    paddingVertical: 10,
+    // paddingHorizontal: 20,
+  },
+  dateBtn:{
+    marginRight: 100,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
   inputs: {
     marginVertical: 10,
     marginRight: 20,
@@ -84,4 +101,5 @@ export const styles = StyleSheet.create({
     marginRight: 100,
     color: "blue",
   },
+  
 });
