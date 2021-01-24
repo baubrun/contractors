@@ -21,7 +21,7 @@ const App = () => {
        ref={navigationRef}
        >
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={JobForm} />
+          <Stack.Screen name="Jobs" component={JobForm} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

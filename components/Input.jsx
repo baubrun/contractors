@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet } from "react-native";
 
 const Input = (props) => {
   return (
-    <View style={styles.textInputContainer}>
+    <View style={styles.container}>
       <Text>{props.label}</Text>
       <TextInput {...props} style={styles.textInput} />
     </View>
@@ -18,7 +18,15 @@ const styles = StyleSheet.create({
     fontSize: 11,
     // borderColor: "#64ffda"
   },
-  textInputContainer: {
-    alignSelf: "stretch",
+  container: {
+    alignItems: "center",
+    // backgroundColor: "#1c2c91",
+    // flex: 1,
+    flexDirection: "row",
+    // flexWrap: "wrap",
+    justifyContent: "center",
+    // padding: 10,
+    // paddingTop: 20,
+
   },
 });

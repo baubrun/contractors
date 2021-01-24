@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
 
 import Input from "./Input";
 import Select from "./Select";
@@ -22,46 +22,56 @@ const JobForm = () => {
 
   useEffect(() => {
     dispatch(listStores());
-    // dispatch(listRates());
+    dispatch(listRates());
   }, []);
 
   useEffect(() => {
-    // if (stores) {
     setValues({ ...values, storeData: stores });
-    // }
   }, [stores]);
 
   if (loading || store.length < 1) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#00ff00" />
+      <View>
+        <ActivityIndicator size="large" color="white" />
       </View>
-    )}
-
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      <Input placeholder="Search" />
-      <Select
-        data={stores}
-        selected={selected}
-        setSelected={setSelected}
-      />
-    </View>
+    <>
+      <View style={styles.container}>
+        <Input placeholder="First Name" />
+        <Select
+          data={stores}
+          selected={selected}
+          setSelected={setSelected}
+          title="select store #"
+        />
+      </View>
+    </>
   );
-
 };
 
 export default JobForm;
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row",
-    // backgroundColor: "#1de9b6",
-    padding: 10,
-    paddingTop: 20,
-    justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "#1c2c91",
+    // flex: 1,
+    flexDirection: "row",
+    // flexWrap: "wrap",
+    justifyContent: "center",
+    // padding: 10,
+    // paddingTop: 20,
+  },
+  input: {
+    flex: 1,
+  },
+  titleText: {
+    // color: "white",
+    fontSize: 16,
+    textTransform: "uppercase",
+    // marginBottom: 16
   },
 });

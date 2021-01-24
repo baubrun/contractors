@@ -1,34 +1,64 @@
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
-import { StyleSheet } from "react-native";
+import { View, Text, StyleSheet} from "react-native";
+
 
 const Select = (props) => {
   return (
-    <Picker
-    style={styles.container}
-      selectedValue={props.selected}
-      onValueChange={(val, idx) => props.setSelected(val)}
-    >
-      {props.data.map((item, index) => {
-        return (
-          <Picker.Item
-            key={index}
-            label={item.storeNumber}
-            value={item.storeNumber}
-          />
-        );
-      })}
-    </Picker>
+    <>
+      <View style={styles.titleText}>
+        <Text style={styles.text}>{props.title}</Text>
+      </View>
+      <View style={styles.container}>
+        <Picker
+        style={styles.picker}
+          selectedValue={props.selected}
+          onValueChange={(val, idx) => props.setSelected(val)}
+        >
+          {props.data.map((item, index) => {
+            return (
+              <Picker.Item
+                key={index}
+                label={item.storeNumber}
+                value={item.storeNumber}
+              />
+            );
+          })}
+        </Picker>
+      </View>
+    </>
   );
 };
 
 export default Select;
 
+export const styles = StyleSheet.create({
+  picker: {
+      // justifyContent: "center",
+      // color: "white"
+      // width: 50,
+      // alignSelf: "flex-end",
+      paddingLeft: 25,
 
-const styles = StyleSheet.create({
+  },
   container: {
-    flex: 1,
-    paddingTop: 40,
-    alignItems: "center"
+      // paddingTop: 40,
+      // alignItems: "center",
+      // borderColor: "white",
+      borderRadius: 5,
+      borderStyle: "solid",
+      borderWidth: 1,
+      // flex: 2,
+      width: 150,
+  },
+  titleText: {
+      flex: 1,
+  },
+  text: {
+    // color: "white",
+    // flex: 1,
+    fontSize: 16,
+    textTransform: "uppercase",
   }
 });
+
