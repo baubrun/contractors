@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "./Select";
 import { Input, Label, Item, Content, Form } from "native-base";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const JobInformation = (props) => {
   return (
@@ -9,7 +9,7 @@ const JobInformation = (props) => {
       <Content>
         <Form>
           <Item style={styles.inputs}>
-            <Label>First Name</Label>
+            <Label style={styles.label}>First Name</Label>
             <Input
               style={styles.inputs}
               onChangeText={(text) =>
@@ -19,7 +19,7 @@ const JobInformation = (props) => {
           </Item>
 
           <Item style={styles.inputs}>
-            <Label>Last Name</Label>
+            <Label style={styles.label}>Last Name</Label>
             <Input
               onChangeText={(text) =>
                 props.setValues({ ...props.values, lastName: text })
@@ -28,7 +28,7 @@ const JobInformation = (props) => {
           </Item>
 
           <Item style={styles.inputs}>
-            <Label>STORE #</Label>
+            <Label style={styles.selectLabel}>STORE #</Label>
             <Select
               data={props.stores}
               selected={props.storeNumber}
@@ -49,11 +49,12 @@ export const styles = StyleSheet.create({
     marginRight: 20,
     paddingHorizontal: 10,
   },
-  btn: {
-    margin: 20,
+  label: {
+    color: "blue",
+    marginRight: 30,
   },
-  bntText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
+  selectLabel: { 
+      marginRight: 100,
+      color: "blue",
+    },
 });

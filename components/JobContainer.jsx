@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { listRates, ratesState } from "../redux/ratesSlice";
 import { listStores, storesState } from "../redux/storeSlice";
 import store from "../redux/store";
 import {
   Container,
   Header,
-  Content,
   Tab,
   Tabs,
   ScrollableTab,
@@ -15,6 +14,7 @@ import {
 
 import AssembledItems from "./AssembledItems";
 import JobInformation from "./JobInformation";
+import  ConfirmJob from "./ConfirmJob";
 
 const JobContainer = () => {
   const dispatch = useDispatch();
@@ -63,6 +63,10 @@ const JobContainer = () => {
 
             <Tab heading="ASSEMBLED ITEMS">
               <AssembledItems />
+            </Tab>
+
+            <Tab heading="CONFIRM">
+              <ConfirmJob />
             </Tab>
 
           </Tabs>
