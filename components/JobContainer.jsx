@@ -4,23 +4,18 @@ import { ActivityIndicator, View } from "react-native";
 import { listRates, ratesState } from "../redux/ratesSlice";
 import { listStores, storesState } from "../redux/storeSlice";
 import store from "../redux/store";
-import {
-  Container,
-  Header,
-  Tab,
-  Tabs,
-  ScrollableTab,
-} from "native-base";
+import { Container, Header, Tab, Tabs, ScrollableTab } from "native-base";
 
 import AssembledItems from "./AssembledItems";
 import JobInformation from "./JobInformation";
-import  ConfirmJob from "./ConfirmJob";
+import ConfirmJob from "./ConfirmJob";
 
 const JobContainer = () => {
   const dispatch = useDispatch();
   const { rates } = useSelector(ratesState);
   const { stores, loading } = useSelector(storesState);
   const [storeNumber, setStoreNumber] = useState("");
+
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -28,19 +23,27 @@ const JobContainer = () => {
     storeData: [],
   });
 
+  const onDateChange = (evt, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setValues({...values, date: currentDate});
+  };
+
   useEffect(() => {
     dispatch(listStores());
     dispatch(listRates());
   }, []);
 
   useEffect(() => {
-    setValues({ ...values, storeData: stores });
+    if (stores.length > 0) {
+      setValues({ ...values, storeData: stores });
+    }
   }, [stores]);
 
-  if (loading || store.length < 1) {
+  if (loading) {
     return (
       <View>
-        <ActivityIndicator size="large" color="white" />
+        <ActivityIndicator size="large" color="red" />
       </View>
     );
   }
@@ -50,31 +53,28 @@ const JobContainer = () => {
       <Container>
         <Header hasTabs />
 
-          <Tabs renderTabBar={() => <ScrollableTab />}>
-            <Tab heading="JOB INFO">
-              <JobInformation
-              stores={stores} 
-              storeNumber={storeNumber} 
-              setStoreNumber={setStoreNumber} 
+        <Tabs renderTabBar={() => <ScrollableTab />}>
+          <Tab heading="JOB INFO">
+            <JobInformation
+              stores={stores}
+              storeNumber={storeNumber}
+              setStoreNumber={setStoreNumber}
               setValues={setValues}
               values={values}
-              />
-            </Tab>
+            />
+          </Tab>
 
-            <Tab heading="ASSEMBLED ITEMS">
-              <AssembledItems />
-            </Tab>
+          <Tab heading="ASSEMBLED ITEMS">
+            <AssembledItems />
+          </Tab>
 
-            <Tab heading="CONFIRM">
-              <ConfirmJob />
-            </Tab>
-
-          </Tabs>
-
+          <Tab heading="CONFIRM">
+            <ConfirmJob />
+          </Tab>
+        </Tabs>
       </Container>
     </>
   );
 };
 
 export default JobContainer;
-

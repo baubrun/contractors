@@ -10,7 +10,7 @@ import { StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
 
-import JobForm from "./components/JobContainer";
+import JobContainer from "./components/JobContainer";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +26,7 @@ const App = () => {
        ref={navigationRef}
        >
         <Stack.Navigator>
-          <Stack.Screen name="Jobs" component={JobForm} />
+          <Stack.Screen name="Contractors" component={JobContainer} />
         </Stack.Navigator>
       </NavigationContainer>
       </StyleProvider>
