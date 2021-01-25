@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "./Select";
 import { Input, Label, Item, Content, Form } from "native-base";
 import { StyleSheet, View, Button, Platform } from "react-native";
@@ -64,6 +64,7 @@ const JobInformation = (props) => {
           <Item style={styles.inputs}>
             <Label style={styles.selectLabel}>STORE #</Label>
             <Select
+              item="storeNumber"
               data={props.stores}
               selected={props.storeNumber}
               setSelected={props.setStoreNumber}
@@ -81,7 +82,6 @@ export const styles = StyleSheet.create({
   dateLabel:{
     marginRight: 100,
     paddingVertical: 10,
-    // paddingHorizontal: 20,
   },
   dateBtn:{
     marginRight: 100,
@@ -96,6 +96,7 @@ export const styles = StyleSheet.create({
   label: {
     color: "blue",
     marginRight: 30,
+    textTransform: "uppercase"
   },
   selectLabel: {
     marginRight: 100,

@@ -16,8 +16,10 @@ const Select = (props) => {
           return (
             <Picker.Item
               key={idx}
-              label={item.storeNumber}
-              value={item.storeNumber}
+              label={item[props.item]}
+              value={item[props.item]}
+              // label={item.storeNumber}
+              // value={item.storeNumber}
             />
           );
         })}

@@ -22,12 +22,16 @@ export const createJob = createAsyncThunk(
 export const jobSlice = createSlice({
   name: "job",
   initialState: {
+    confirmation: "",
     job: {},
+    items: [],
     error: "",
     loading: false,
-    confirmation: ""
   },
   reducers: {
+    addItem: (state, action) => {
+      state.items = [...items, action.payload]
+    },
     clearError: (state) => {
       state.error = ""
     },
@@ -59,6 +63,6 @@ export const jobSlice = createSlice({
   },
 });
 
-export const { clearError, clearJob } = jobSlice.actions;
+export const { addItem, clearError, clearJob } = jobSlice.actions;
 export const jobState = (state) => state.job;
 export default jobSlice.reducer;

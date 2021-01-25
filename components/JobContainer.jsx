@@ -29,11 +29,7 @@ const JobContainer = () => {
     dispatch(listRates());
   }, []);
 
-  // useEffect(() => {
-  //   if (stores.length > 0) {
-  //     setValues({ ...values, storeData: stores });
-  //   }
-  // });
+  
 
   if (loading) {
     return (
