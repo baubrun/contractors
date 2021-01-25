@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-
 import { Picker } from "native-base";
 
+
+
 const Select = (props) => {
+
   return (
     <>
       <Picker
@@ -16,8 +17,8 @@ const Select = (props) => {
           return (
             <Picker.Item
               key={idx}
-              label={item[props.item]}
-              value={item[props.item]}
+              label={item}
+              value={item}
             />
           );
         })}

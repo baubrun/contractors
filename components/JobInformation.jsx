@@ -4,6 +4,9 @@ import { Input, Label, Item, Content, Form } from "native-base";
 import { StyleSheet, View, Button, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+import {getValues} from "../utils"
+
+
 const JobInformation = (props) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
@@ -65,7 +68,7 @@ const JobInformation = (props) => {
             <Label style={styles.selectLabel}>STORE #</Label>
             <Select
               item="storeNumber"
-              data={props.stores}
+              data={getValues(props.stores, "storeNumber")}
               selected={props.storeNumber}
               setSelected={props.setStoreNumber}
             />

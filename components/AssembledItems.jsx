@@ -55,7 +55,6 @@ const AssembledItems = () => {
         <ListItem>
           <Label style={styles.label}>Assembly sku #</Label>
           <Item style={styles.inputs}>
-            <Label style={styles.selectLabel}>ASSEMBLY SKU</Label>
             <Select
               item="assemblySku"
               data={assemblyNumbers}
