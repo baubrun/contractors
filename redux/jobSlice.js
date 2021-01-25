@@ -12,7 +12,7 @@ export const createJob = createAsyncThunk(
     return res.data
   } catch (error) {
     return {
-      error: error.message
+      error: error.response.data.error
     };
   }
 });

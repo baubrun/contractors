@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator, View } from "react-native";
-import { listRates, ratesState } from "../redux/ratesSlice";
-import { listStores, storesState } from "../redux/storeSlice";
-import store from "../redux/store";
 import { Container, Header, Tab, Tabs, ScrollableTab } from "native-base";
 
 import AssembledItems from "./AssembledItems";
 import JobInformation from "./JobInformation";
 import ConfirmJob from "./ConfirmJob";
 
+import { listStores, storesState } from "../redux/storeSlice";
+import { listItemSku } from "../redux/itemsSlice";
+
+
 const JobContainer = () => {
   const dispatch = useDispatch();
-  const { rates } = useSelector(ratesState);
   const { stores, loading } = useSelector(storesState);
   const [storeNumber, setStoreNumber] = useState("");
 
@@ -26,7 +26,7 @@ const JobContainer = () => {
 
   useEffect(() => {
     dispatch(listStores());
-    dispatch(listRates());
+    dispatch(listItemSku());
   }, []);
 
   

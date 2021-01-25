@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
   Input,
@@ -13,6 +13,7 @@ import {
   ListItem,
 } from "native-base";
 
+import { itemsState } from "../redux/itemsSlice";
 import Select from "./Select";
 import { addItem } from "../redux/jobSlice";
 
@@ -24,17 +25,17 @@ const defaultValues = {
 
 const AssembledItems = () => {
   const dispatch = useDispatch();
-  const [values, setValues] = useState(defaultValues);
+  const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
   const [assemblySku, setAssemblySku] = useState("");
+  const [itemSku, setItemSku] = useState("");
+  const [values, setValues] = useState(defaultValues);
 
   return (
     <Content>
       <List>
         <ListItem>
           <Label style={styles.label}>PO #</Label>
-          <Input
-            onChangeText={(text) => setValues({ ...values, PO: text })}
-          />
+          <Input onChangeText={(text) => setValues({ ...values, PO: text })} />
         </ListItem>
 
         <ListItem itemDivider style={styles.section}>
@@ -42,23 +43,19 @@ const AssembledItems = () => {
             <Text>ENTER ITEM NAME OR A SKU #</Text>
           </Item>
         </ListItem>
-
-
       </List>
       <Form>
-        <Item >
+        <Item>
           <Label style={styles.label}>item name</Label>
           <Input
             onChangeText={(text) => setValues({ ...values, item: text })}
           />
         </Item>
 
-
-        <ListItem >
+        <ListItem>
           <Label style={styles.label}>Assembly sku #</Label>
-        <Item style={styles.inputs}>
-            <Label style={styles.selectLabel}>ASSEMBLY SKU
-            </Label>
+          <Item style={styles.inputs}>
+            <Label style={styles.selectLabel}>ASSEMBLY SKU</Label>
             <Select
               item="assemblySku"
               data={assemblyNumbers}
@@ -68,9 +65,16 @@ const AssembledItems = () => {
           </Item>
         </ListItem>
 
-        <ListItem >
+        <ListItem>
           <Label style={styles.label}>item sku #</Label>
-          <Input onChangeText={(text) => setValues({ ...values, sku: text })} />
+          <Item style={styles.inputs}>
+            <Select
+              item="itemSku"
+              data={itemNumbers}
+              selected={itemSku}
+              setSelected={setItemSku}
+            />
+          </Item>
         </ListItem>
 
         <ListItem itemDivider style={{ paddingLeft: "40%" }}>
@@ -79,15 +83,12 @@ const AssembledItems = () => {
           </Item>
         </ListItem>
 
-
-        <Item >
+        <Item>
           <Label style={styles.label}>qty</Label>
-          <Input
-            onChangeText={(text) => setValues({ ...values, qty: text })}
-          />
+          <Input onChangeText={(text) => setValues({ ...values, qty: text })} />
         </Item>
 
-        <Item >
+        <Item>
           <Button
             onPress={() => {
               dispatch(addItem(values));
@@ -117,5 +118,5 @@ export const styles = StyleSheet.create({
   },
   section: {
     paddingLeft: "25%",
-  }
+  },
 });
