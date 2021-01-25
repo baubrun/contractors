@@ -11,6 +11,7 @@ import {
   Text,
   List,
   ListItem,
+  Container
 } from "native-base";
 
 import { itemsState } from "../redux/itemsSlice";
@@ -30,74 +31,90 @@ const AssembledItem = () => {
   const [itemSku, setItemSku] = useState("");
   const [values, setValues] = useState(defaultValues);
 
+  const resetStates = () => {
+    setValues(defaultValues);
+    setAssemblySku("");
+    setItemSku("");
+  };
+
+  const createItem = () => {
+    const item = {
+      ...values,
+      assemblySku,
+      itemSku,
+    };
+
+    dispatch(addItem(item));
+    resetStates();
+  };
+
   return (
     <Content>
       <List>
-        <ListItem>
+        <ListItem >
           <Label style={styles.label}>PO #</Label>
-          <Input keyboardType="numeric" onChangeText={(text) => setValues({ ...values, PO: text })} />
+          <Input
+            keyboardType="numeric"
+            onChangeText={(text) => setValues({ ...values, PO: text })}
+          />
         </ListItem>
 
         <ListItem itemDivider style={styles.section}>
-          <Item>
             <Text>ENTER ITEM NAME OR A SKU #</Text>
-          </Item>
         </ListItem>
-      </List>
-      <Form>
-        <Item>
+        <ListItem>
           <Label style={styles.label}>item name</Label>
           <Input
             onChangeText={(text) => setValues({ ...values, item: text })}
           />
-        </Item>
+        </ListItem>
 
         <ListItem>
           <Label style={styles.label}>Assembly sku #</Label>
-          <Item style={styles.inputs}>
             <Select
               item="assemblySku"
               data={assemblyNumbers}
               selected={assemblySku}
               setSelected={setAssemblySku}
             />
-          </Item>
         </ListItem>
 
-        <ListItem>
+        <ListItem >
           <Label style={styles.label}>item sku #</Label>
-          <Item style={styles.inputs}>
             <Select
               item="itemSku"
               data={itemNumbers}
               selected={itemSku}
               setSelected={setItemSku}
             />
-          </Item>
         </ListItem>
 
         <ListItem itemDivider style={{ paddingLeft: "40%" }}>
-          <Item>
             <Text>QUANTITY</Text>
-          </Item>
         </ListItem>
 
-        <Item>
+        <ListItem>
           <Label style={styles.label}>qty</Label>
-          <Input keyboardType="numeric" onChangeText={(text) => setValues({ ...values, qty: text })} />
-        </Item>
+          <Input
+            keyboardType="numeric"
+            onChangeText={(text) => setValues({ ...values, qty: text })}
+          />
+        </ListItem>
 
-        <Item>
-          <Button
-            onPress={() => {
-              // dispatch(addItem(values));
-              setValues(defaultValues);
-            }}
-          >
-            <Text>Add Item</Text>
-          </Button>
-        </Item>
-      </Form>
+        <ListItem itemDivider>
+            
+        </ListItem>
+      </List>
+      <Container>
+      <Button
+            full
+              onPress={() => {
+                createItem();
+              }}
+            >
+              <Text>Add Item</Text>
+            </Button>
+      </Container>
     </Content>
   );
 };

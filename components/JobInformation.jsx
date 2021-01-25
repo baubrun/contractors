@@ -1,52 +1,18 @@
 import React, { useState } from "react";
 import Select from "./Select";
-import { Input, Label, Item, Content, Form } from "native-base";
-import { StyleSheet, View, Button, Platform } from "react-native";
+import { StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import {getValues, sortedArray} from "../utils"
-
+import { getValues, sortedArray } from "../utils";
+import { Input, Label, Item, Content, Form, Button, Text } from "native-base";
 
 const JobInformation = (props) => {
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-  };
-
-  const selectData = sortedArray(getValues(props.stores, "storeNumber"))
+  const selectData = sortedArray(getValues(props.stores, "storeNumber"));
 
   return (
     <>
       <Content>
         <Form>
-          <Item style={styles.inputs}>
-
-            <View style={styles.dateLabel}>
-              <Button 
-              style={styles.dateBtn}
-              onPress={() => 
-              setShow(true)} 
-              title="CHANGE DATE" />
-            </View>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode="date"
-                display="default"
-                onChange={onChange}
-              />
-            )}
-
-            <View>
-              <Label >{date.toString().substring(4, 15)}</Label>
-            </View>
-          </Item>
-
           <Item style={styles.inputs}>
             <Label style={styles.label}>First Name</Label>
             <Input
@@ -75,6 +41,29 @@ const JobInformation = (props) => {
               setSelected={props.setStoreNumber}
             />
           </Item>
+
+          <Item style={styles.inputs}>
+            <View style={styles.dateLabel}>
+              <Button onPress={() => props.setShow(true)}>
+                <Text>change date</Text>
+              </Button>
+            </View>
+            {props.show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={props.date}
+                mode="date"
+                display="default"
+                onChange={props.onChange}
+              />
+            )}
+
+            <View>
+              <Label>{props.date.toString().substring(4, 15)}</Label>
+            </View>
+          </Item>
+
+
         </Form>
       </Content>
     </>
@@ -84,15 +73,11 @@ const JobInformation = (props) => {
 export default JobInformation;
 
 export const styles = StyleSheet.create({
-  dateLabel:{
+  dateLabel: {
     marginRight: 100,
     paddingVertical: 10,
   },
-  dateBtn:{
-    marginRight: 100,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
+
   inputs: {
     marginVertical: 10,
     marginRight: 20,
@@ -101,11 +86,10 @@ export const styles = StyleSheet.create({
   label: {
     color: "blue",
     marginRight: 30,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   selectLabel: {
     marginRight: 100,
     color: "blue",
   },
-  
 });
