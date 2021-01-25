@@ -1,38 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
   Input,
   Label,
-  Item,
   Content,
-  Form,
   Button,
   Text,
   List,
   ListItem,
-  Container
 } from "native-base";
 
 import { itemsState } from "../redux/itemsSlice";
 import Select from "./Select";
 import { addItem } from "../redux/jobSlice";
 
-const defaultValues = {
+
+const defaultState = {
   itemDescription: "",
-  PO: null,
-  qty: null,
-};
+  PO: "",
+  qty: "",
+}
+
 
 const AssembledItem = () => {
   const dispatch = useDispatch();
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
   const [assemblySku, setAssemblySku] = useState("");
   const [itemSku, setItemSku] = useState("");
-  const [values, setValues] = useState(defaultValues);
+  const [values, setValues] = useState(defaultState);
 
   const resetStates = () => {
-    setValues(defaultValues);
+    setValues(defaultState);
     setAssemblySku("");
     setItemSku("");
   };
@@ -51,70 +50,63 @@ const AssembledItem = () => {
   return (
     <Content>
       <List>
-        <ListItem >
+        <ListItem>
           <Label style={styles.label}>PO #</Label>
           <Input
             keyboardType="numeric"
             onChangeText={(text) => setValues({ ...values, PO: text })}
+            value={values.PO}
           />
         </ListItem>
 
         <ListItem itemDivider style={styles.section}>
-            <Text>ENTER ITEM NAME OR A SKU #</Text>
+          <Text>ENTER ITEM NAME OR A SKU #</Text>
         </ListItem>
         <ListItem>
           <Label style={styles.label}>item name</Label>
           <Input
             onChangeText={(text) => setValues({ ...values, item: text })}
+            value={values.itemDescription}
           />
         </ListItem>
 
         <ListItem>
           <Label style={styles.label}>Assembly sku #</Label>
-            <Select
-              item="assemblySku"
-              data={assemblyNumbers}
-              selected={assemblySku}
-              setSelected={setAssemblySku}
-            />
+          <Select
+            item="assemblySku"
+            data={assemblyNumbers}
+            selected={assemblySku}
+            setSelected={setAssemblySku}
+          />
         </ListItem>
 
-        <ListItem >
+        <ListItem>
           <Label style={styles.label}>item sku #</Label>
-            <Select
-              item="itemSku"
-              data={itemNumbers}
-              selected={itemSku}
-              setSelected={setItemSku}
-            />
+          <Select
+            item="itemSku"
+            data={itemNumbers}
+            selected={itemSku}
+            setSelected={setItemSku}
+          />
         </ListItem>
 
-        <ListItem itemDivider style={{ paddingLeft: "40%" }}>
-            <Text>QUANTITY</Text>
-        </ListItem>
-
+  
         <ListItem>
           <Label style={styles.label}>qty</Label>
           <Input
             keyboardType="numeric"
             onChangeText={(text) => setValues({ ...values, qty: text })}
+            value={values.qty}
           />
         </ListItem>
 
-        <ListItem itemDivider>
-            
-        </ListItem>
       </List>
-      <Container>
-      <Button
-            full
-              onPress={() => {
-                createItem();
-              }}
-            >
-              <Text>Add Item</Text>
-            </Button>
-      </Container>
+        <Button
+          full
+          onPress={() => createItem()}
+        >
+          <Text>Add Item</Text>
+        </Button>
     </Content>
   );
 };

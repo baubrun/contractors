@@ -20,6 +20,7 @@ const JobInformation = (props) => {
               onChangeText={(text) =>
                 props.setValues({ ...props.values, firstName: text })
               }
+              value={props.values.firstName}
             />
           </Item>
 
@@ -29,6 +30,7 @@ const JobInformation = (props) => {
               onChangeText={(text) =>
                 props.setValues({ ...props.values, lastName: text })
               }
+              value={props.values.lastName}
             />
           </Item>
 

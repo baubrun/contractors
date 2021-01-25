@@ -30,7 +30,7 @@ export const jobSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-      state.items = [...items, action.payload]
+      state.items = [...state.items, action.payload]
     },
     clearError: (state) => {
       state.error = ""
