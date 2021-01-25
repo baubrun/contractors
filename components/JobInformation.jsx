@@ -25,7 +25,7 @@ const JobInformation = (props) => {
               style={styles.dateBtn}
               onPress={() => 
               setShow(true)} 
-              title="JOB DATE" />
+              title="CHANGE DATE" />
             </View>
             {show && (
               <DateTimePicker

@@ -18,8 +18,6 @@ const Select = (props) => {
               key={idx}
               label={item[props.item]}
               value={item[props.item]}
-              // label={item.storeNumber}
-              // value={item.storeNumber}
             />
           );
         })}
