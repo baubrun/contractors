@@ -4,7 +4,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "expo start --android",
+    "start": "expo start",
     "test": "jest",
     "server": "nodemon server.js"
   },

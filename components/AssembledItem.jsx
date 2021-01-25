@@ -90,7 +90,7 @@ const AssembledItem = () => {
         <Item>
           <Button
             onPress={() => {
-              dispatch(addItem(values));
+              // dispatch(addItem(values));
               setValues(defaultValues);
             }}
           >
