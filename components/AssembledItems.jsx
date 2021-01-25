@@ -17,9 +17,7 @@ import Select from "./Select";
 import { addItem } from "../redux/jobSlice";
 
 const defaultValues = {
-  assemblySku: "",
   itemDescription: "",
-  itemSku: "",
   PO: null,
   qty: null,
 };
@@ -27,6 +25,7 @@ const defaultValues = {
 const AssembledItems = () => {
   const dispatch = useDispatch();
   const [values, setValues] = useState(defaultValues);
+  const [assemblySku, setAssemblySku] = useState("");
 
   return (
     <Content>
@@ -34,7 +33,6 @@ const AssembledItems = () => {
         <ListItem>
           <Label style={styles.label}>PO #</Label>
           <Input
-            // style={styles.inputs}
             onChangeText={(text) => setValues({ ...values, PO: text })}
           />
         </ListItem>
@@ -58,9 +56,16 @@ const AssembledItems = () => {
 
         <ListItem >
           <Label style={styles.label}>Assembly sku #</Label>
-          <Input
-            onChangeText={(text) => setValues({ ...values, assemblySku: text })}
-          />
+        <Item style={styles.inputs}>
+            <Label style={styles.selectLabel}>ASSEMBLY SKU
+            </Label>
+            <Select
+              item="assemblySku"
+              data={assemblyNumbers}
+              selected={assemblySku}
+              setSelected={setAssemblySku}
+            />
+          </Item>
         </ListItem>
 
         <ListItem >
@@ -78,7 +83,6 @@ const AssembledItems = () => {
         <Item >
           <Label style={styles.label}>qty</Label>
           <Input
-            // style={styles.inputs}
             onChangeText={(text) => setValues({ ...values, qty: text })}
           />
         </Item>

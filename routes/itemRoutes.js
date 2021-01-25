@@ -9,6 +9,12 @@ router.route("/api/items")
     itemsController.read,
     )
 
+
+router.route("/api/items/sku/list")
+  .get(
+    itemsController.listItemSku,
+    )
+
   
 
 
