@@ -23,7 +23,7 @@ const defaultValues = {
   qty: null,
 };
 
-const AssembledItems = () => {
+const AssembledItem = () => {
   const dispatch = useDispatch();
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
   const [assemblySku, setAssemblySku] = useState("");
@@ -35,7 +35,7 @@ const AssembledItems = () => {
       <List>
         <ListItem>
           <Label style={styles.label}>PO #</Label>
-          <Input onChangeText={(text) => setValues({ ...values, PO: text })} />
+          <Input keyboardType="numeric" onChangeText={(text) => setValues({ ...values, PO: text })} />
         </ListItem>
 
         <ListItem itemDivider style={styles.section}>
@@ -84,7 +84,7 @@ const AssembledItems = () => {
 
         <Item>
           <Label style={styles.label}>qty</Label>
-          <Input onChangeText={(text) => setValues({ ...values, qty: text })} />
+          <Input keyboardType="numeric" onChangeText={(text) => setValues({ ...values, qty: text })} />
         </Item>
 
         <Item>
@@ -102,7 +102,7 @@ const AssembledItems = () => {
   );
 };
 
-export default AssembledItems;
+export default AssembledItem;
 
 export const styles = StyleSheet.create({
   inputs: {

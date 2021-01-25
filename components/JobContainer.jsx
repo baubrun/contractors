@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator, View } from "react-native";
 import { Container, Header, Tab, Tabs, ScrollableTab } from "native-base";
 
-import AssembledItems from "./AssembledItems";
+import AssembledItems from "./AssembledItem";
 import JobInformation from "./JobInformation";
 import ConfirmJob from "./ConfirmJob";
 
