@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
   Input,
@@ -13,6 +13,7 @@ import {
 
 import { itemsState } from "../redux/itemsSlice";
 import Select from "./Select";
+
 
 const AssembledItem = (props) => {
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
