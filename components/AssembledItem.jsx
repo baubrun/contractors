@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
@@ -13,39 +13,9 @@ import {
 
 import { itemsState } from "../redux/itemsSlice";
 import Select from "./Select";
-import { addItem } from "../redux/jobSlice";
 
-
-const defaultState = {
-  itemDescription: "",
-  PO: "",
-  qty: "",
-}
-
-
-const AssembledItem = () => {
-  const dispatch = useDispatch();
+const AssembledItem = (props) => {
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
-  const [assemblySku, setAssemblySku] = useState("");
-  const [itemSku, setItemSku] = useState("");
-  const [values, setValues] = useState(defaultState);
-
-  const resetStates = () => {
-    setValues(defaultState);
-    setAssemblySku("");
-    setItemSku("");
-  };
-
-  const createItem = () => {
-    const item = {
-      ...values,
-      assemblySku,
-      itemSku,
-    };
-
-    dispatch(addItem(item));
-    resetStates();
-  };
 
   return (
     <Content>
@@ -54,8 +24,10 @@ const AssembledItem = () => {
           <Label style={styles.label}>PO #</Label>
           <Input
             keyboardType="numeric"
-            onChangeText={(text) => setValues({ ...values, PO: text })}
-            value={values.PO}
+            onChangeText={(text) =>
+              props.setValues({ ...props.values, PO: text })
+            }
+            value={props.values.PO}
           />
         </ListItem>
 
@@ -65,48 +37,52 @@ const AssembledItem = () => {
         <ListItem>
           <Label style={styles.label}>item name</Label>
           <Input
-            onChangeText={(text) => setValues({ ...values, item: text })}
-            value={values.itemDescription}
+            onChangeText={(text) =>
+              props.setValues({ ...props.values, itemDescription: text })
+            }
+            value={props.values.itemDescription}
           />
         </ListItem>
 
         <ListItem>
           <Label style={styles.label}>Assembly sku #</Label>
           <Select
-            item="assemblySku"
             data={assemblyNumbers}
-            selected={assemblySku}
-            setSelected={setAssemblySku}
+            item="assemblySku"
+            selected={props.values.assemblySku}
+            setSelected={props.setValues}
+            values={props.values}
           />
         </ListItem>
 
         <ListItem>
           <Label style={styles.label}>item sku #</Label>
           <Select
-            item="itemSku"
             data={itemNumbers}
-            selected={itemSku}
-            setSelected={setItemSku}
+            item="itemSku"
+            selected={props.values.itemSku}
+            setSelected={props.setValues}
+            values={props.values}
           />
         </ListItem>
 
-  
         <ListItem>
           <Label style={styles.label}>qty</Label>
           <Input
             keyboardType="numeric"
-            onChangeText={(text) => setValues({ ...values, qty: text })}
-            value={values.qty}
+            onChangeText={(text) =>
+              props.setValues({ ...props.values, qty: text })
+            }
+            value={props.values.qty}
           />
         </ListItem>
-
       </List>
-        <Button
-          full
-          onPress={() => createItem()}
-        >
-          <Text>Add Item</Text>
-        </Button>
+      <Button
+        full
+        onPress={() => props.addItem()}
+      >
+        <Text>Add Item</Text>
+      </Button>
     </Content>
   );
 };

@@ -37,10 +37,11 @@ const JobInformation = (props) => {
           <Item style={styles.inputs}>
             <Label style={styles.selectLabel}>STORE #</Label>
             <Select
-              item="storeNumber"
               data={selectData}
-              selected={props.storeNumber}
-              setSelected={props.setStoreNumber}
+              item="storeNumber"
+              selected={props.values.storeNumber}
+              setSelected={props.setValues}
+              values={props.values}
             />
           </Item>
 
@@ -53,7 +54,7 @@ const JobInformation = (props) => {
             {props.show && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={props.date}
+                value={props.values.date}
                 mode="date"
                 display="default"
                 onChange={props.onChange}
@@ -61,11 +62,9 @@ const JobInformation = (props) => {
             )}
 
             <View>
-              <Label>{props.date.toString().substring(4, 15)}</Label>
+              <Label>{props.values.date.toString().substring(4, 15)}</Label>
             </View>
           </Item>
-
-
         </Form>
       </Content>
     </>

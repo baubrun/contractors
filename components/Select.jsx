@@ -10,7 +10,8 @@ const Select = (props) => {
       <Picker
         mode="dialog"
         selectedValue={props.selected}
-        onValueChange={(val, idx) => props.setSelected(val)}
+        onValueChange={
+          (val, idx) => props.setSelected({...props.values, [props.item]: val})}
       >
         <Picker.Item label="" value="key0" />
         {props.data.map((item, idx) => {

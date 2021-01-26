@@ -11,29 +11,50 @@ import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
 
 
+const defaultState = {
+  firstName: "",
+  lastName: "",
+  itemDescription: "",
+  PO: "",
+  qty: "",  
+  assemblySku: "",
+  itemSku: "",
+  storeNumber: "",
+  date: new Date(),
+  storeNumber: "",
+}
+
+
+
+
 const JobContainer = () => {
   const dispatch = useDispatch();
   const { stores, loading } = useSelector(storesState);
-    const [date, setDate] = useState(new Date());
-  const [storeNumber, setStoreNumber] = useState("");
   const [show, setShow] = useState(false);
+  const [values, setValues] = useState(defaultState)
 
-  const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    stores: [],
-    storeData: [],
-  });
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || values.date;
     setShow(Platform.OS === "ios");
-    setDate(currentDate);
+    setValues({...values, date: currentDate});
   };
 
 
+  const resetAssembledItems = () => {
+    setValues({
+      ...values,
+      assemblySku: "",
+      itemDescription: "",
+      itemSku: "",  
+      qty: "",    
+    })
+  }
 
-
+  const createItem = () => {
+    dispatch(addItem(values));
+    resetAssembledItems()
+  };
 
   useEffect(() => {
     dispatch(listStores());
@@ -58,21 +79,21 @@ const JobContainer = () => {
         <Tabs renderTabBar={() => <ScrollableTab />}>
           <Tab heading="JOB INFO">
             <JobInformation
-              date={date}
               onChange={onChange}
               show={show}
               setShow={setShow}
-
-              stores={stores}
-              storeNumber={storeNumber}
-              setStoreNumber={setStoreNumber}
               setValues={setValues}
+              stores={stores}
               values={values}
             />
           </Tab>
 
           <Tab heading="ASSEMBLED ITEMS">
-            <AssembledItems />
+            <AssembledItems 
+              addItem={createItem}
+              setValues={setValues}
+              values={values}
+            />
           </Tab>
 
           <Tab heading="CONFIRM">
