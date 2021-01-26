@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActivityIndicator, View, Platform } from "react-native";
-import { Container, Header, Tab, Tabs, ScrollableTab,  } from "native-base";
+import { Container, Header, Tab, Tabs, ScrollableTab, Item,  } from "native-base";
 
 import AssembledItems from "./AssembledItem";
 import JobInformation from "./JobInformation";
@@ -9,6 +9,7 @@ import ConfirmJob from "./ConfirmJob";
 
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
+import { addItem } from "../redux/jobSlice";
 
 
 const defaultState = {
@@ -56,6 +57,13 @@ const JobContainer = () => {
     resetAssembledItems()
   };
 
+
+  const handleSubmit = () => {
+    dispatch(addItem(values))
+  }
+
+
+
   useEffect(() => {
     dispatch(listStores());
     dispatch(listItemSku());
@@ -97,7 +105,9 @@ const JobContainer = () => {
           </Tab>
 
           <Tab heading="CONFIRM">
-            <ConfirmJob />
+            <ConfirmJob 
+            handleSubmit={handleSubmit}
+            />
           </Tab>
         </Tabs>
       </Container>

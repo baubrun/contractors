@@ -23,14 +23,25 @@ export const jobSlice = createSlice({
   name: "job",
   initialState: {
     confirmation: "",
-    job: {},
-    items: [],
+    job: {
+      firstName: "",
+      lastName: "",
+      itemDescription: "",
+      PO: "",
+      qty: "",  
+      assemblySku: "",
+      itemSku: "",
+      storeNumber: "",
+      date: null,
+      items: [],
+    },
     error: "",
     loading: false,
   },
   reducers: {
     addItem: (state, action) => {
-      state.items = [...state.items, action.payload]
+      // state.items = [...state.items, action.payload]
+      state.job = {...state.job, items: [...state.job.items, action.payload]}
     },
     clearError: (state) => {
       state.error = ""

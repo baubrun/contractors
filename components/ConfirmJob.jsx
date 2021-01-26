@@ -1,31 +1,27 @@
-import React from 'react'
-import { StyleSheet, Text } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
-const ConfirmJob = () => {
-    return (
-        <Text>
-                       {/* <Button
-              block
-              primary
-              style={styles.btn}
-              onPress={() => handleSubmit()}
-            >
-              <Text>SUBMIT</Text>
-            </Button> */}
-          ConfirmJob
-        </Text>
-    )
-}
+import { Button, Text, List, ListItem } from "native-base";
 
-export default ConfirmJob
+import { jobState } from "../redux/jobSlice";
 
+const ConfirmJob = (props) => {
+  const dispatch = useDispatch();
+  const { job } = useSelector(jobState);
 
-export const styles = StyleSheet.create({
-  btn: {
-    margin: 20,
-  },
-  bntText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
+  return (
+    <List>
+      <ListItem>
+        <Text> {JSON.stringify(job)}</Text>
+      </ListItem>
+      <ListItem>
+        <Button full primary onPress={() => props.handleSubmit()}>
+          <Text>SUBMIT JOB</Text>
+        </Button>
+      </ListItem>
+    </List>
+  );
+};
+
+export default ConfirmJob;
