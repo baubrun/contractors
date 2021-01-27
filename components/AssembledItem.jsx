@@ -80,7 +80,7 @@ const AssembledItem = (props) => {
       </List>
       <Button
         full
-        onPress={() => props.addItem()}
+        onPress={() => props.addItems()}
       >
         <Text>Add Item</Text>
       </Button>

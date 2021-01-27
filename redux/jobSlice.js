@@ -23,13 +23,9 @@ export const createJob = createAsyncThunk(
 const jobInitState = {
   firstName: "",
   lastName: "",
-  itemDescription: "",
   PO: "",
-  qty: "",  
-  assemblySku: "",
-  itemSku: "",
-  storeNumber: "",
   date: "",
+  storeNumber: "",
   items: [],
   notes: ""
 }
@@ -43,8 +39,11 @@ export const jobSlice = createSlice({
     loading: false,
   },
   reducers: {
-    addItem: (state, action) => {
-      state.job = {...state.job, items: [...state.job.items, action.payload]}
+    addJob: (state, action) => {
+      state.job = {...state.job, ...action.payload}
+    },
+    addItems: (state, action) => {
+      state.job.items = [...state.job.items, action.payload.items]
     },
     clearError: (state) => {
       state.error = ""
@@ -77,6 +76,6 @@ export const jobSlice = createSlice({
   },
 });
 
-export const { addItem, clearError, clearJob } = jobSlice.actions;
+export const { clearError, clearJob, addItems, addJob } = jobSlice.actions;
 export const jobState = (state) => state.job;
 export default jobSlice.reducer;
