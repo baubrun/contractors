@@ -9,7 +9,7 @@ import ConfirmJob from "./ConfirmJob";
 
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
-import { addItems, addJob } from "../redux/jobSlice";
+import { addItems, createJob, clearJob } from "../redux/jobSlice";
 
 import _ from "lodash";
 
@@ -55,9 +55,16 @@ const JobContainer = () => {
   };
 
   const addJobItems = () => {
-    handleSubmit();
     dispatch(
       addItems({
+        date: values.date.toString(),
+        jobInfo: _.omit(values, [
+          "assemblySku",
+          "itemDescription",
+          "itemSku",
+          "qty",
+          "date"
+        ]),
         items: _.pick(values, [
           "assemblySku",
           "itemDescription",
@@ -70,17 +77,9 @@ const JobContainer = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      addJob({
-        date: values.date.toString(),
-        firstName: values.firstName,
-        lastName: values.lastName,
-        PO: values.PO,
-        storeNumber: values.storeNumber,
-        notes: values.notes,
-      })
-    );
+    dispatch(createJob())
     resetValues();
+    dispatch(clearJob())
   };
 
   useEffect(() => {
