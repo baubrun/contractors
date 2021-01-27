@@ -12,7 +12,6 @@ const create = async (req, res) => {
         items,
     } = req.body
 
-    console.log('req.body: >>', req.body)
 
     const jobExists = await Job.findOne({
         PO: PO,
@@ -38,7 +37,8 @@ const create = async (req, res) => {
         const newJob = await job.save()
 
         return res.status(200).json({
-            job : newJob._id
+            message : newJob._id,
+            success: true
         });
     } catch (error) {
         return res.status(400).json({

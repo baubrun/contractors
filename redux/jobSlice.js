@@ -32,6 +32,7 @@ export const jobSlice = createSlice({
   name: "job",
   initialState: {
     success: false,
+    message: "",
     job: jobInitState,
     error: "",
     loading: false,
@@ -49,6 +50,8 @@ export const jobSlice = createSlice({
     },
     clearJob: (state) => {
       state.job = jobInitState
+      state.success = false,
+      state.confirmation = ""
     },
   },
   extraReducers: {
@@ -59,11 +62,15 @@ export const jobSlice = createSlice({
     [createJob.fulfilled]: (state, action) => {
       state.loading = false;
       const {
-        error
+        error,
+        success,
+        message
       } = action.payload;
       if (error) {
         state.error = error;
       } else {
+        state.success = success
+        state.message = message
         state.job = jobInitState;
       }
     },

@@ -9,7 +9,7 @@ import ConfirmJob from "./ConfirmJob";
 
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
-import { addItems, createJob, clearJob } from "../redux/jobSlice";
+import { addItems, createJob, clearJob, jobState } from "../redux/jobSlice";
 
 import _ from "lodash";
 
@@ -119,9 +119,11 @@ const JobContainer = () => {
             />
           </Tab>
 
+          
           <Tab heading="CONFIRM">
             <ConfirmJob handleSubmit={handleSubmit} />
           </Tab>
+         
         </Tabs>
       </Container>
     </>

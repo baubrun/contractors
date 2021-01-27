@@ -1,23 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import {
-  Content,
-  Button,
-  Text,
-  List,
-  ListItem,
-} from "native-base";
+import { Content, Container, Button, Text, List, ListItem } from "native-base";
 
 import { jobState } from "../redux/jobSlice";
+import MessageModal from "./MessageModal";
 
 const ConfirmJob = (props) => {
-  const dispatch = useDispatch();
-  const { job } = useSelector(jobState);
+  const { job, success } = useSelector(jobState);
+  const [modalVisible, setModalVisible] = useState(true);
+
+  useEffect(() => {}, []);
 
   if (job.items < 1) {
-    return <Text>NO JOB ADDED.</Text>;
+    return (
+      <Container>
+        <Text>ADD JOB ITEMS.</Text>
+      </Container>
+    );
   }
 
   return (
@@ -47,7 +48,7 @@ const ConfirmJob = (props) => {
               <React.Fragment key={idx}>
                 <ListItem>
                   <View style={styles.section}>
-                  <Text style={styles.itemCount}>ITEM # {idx + 1}</Text>
+                    <Text style={styles.itemCount}>ITEM # {idx + 1}</Text>
                   </View>
                 </ListItem>
                 <ListItem>
@@ -66,7 +67,6 @@ const ConfirmJob = (props) => {
             );
           })}
       </List>
-
 
       <Button full onPress={() => props.handleSubmit()}>
         <Text>SUBMIT JOB</Text>
