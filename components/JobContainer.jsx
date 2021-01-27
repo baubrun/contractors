@@ -53,7 +53,13 @@ const JobContainer = () => {
   }
 
   const createItem = () => {
-    dispatch(addItem(values));
+    dispatch(addItem(
+      { 
+        assemblySku: values.assemblySku,
+        itemDescription: values.itemDescription,
+        itemSku: values.itemSku,  
+        qty: values.qty,    
+      }))
     resetAssembledItems()
   };
 

@@ -29,13 +29,15 @@ const read = async (req, res) => {
     }
 };
 
+
 const listItemSku = async (req, res) => {
     try {
-      const itemNumbers = await Items.distinct("itemSku").sort("itemSku")
-      const assemblyNumbers = await Items.distinct("assemblySku").sort("assemblySku")
+      const itemNumbers = await Items.distinct("itemSku")
+      const assemblyNumbers = await Items.distinct("assemblySku")
+            
       return res.status(200).json({
         itemNumbers,
-        assemblyNumbers
+        assemblyNumbers,
       });
     } catch (error) {
       return res.status(400).json({

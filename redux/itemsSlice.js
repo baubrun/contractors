@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { domain } from "../api";
 
 
-
 export const listItemSku = createAsyncThunk(
     "/item/sku/list", 
     async () => {
@@ -44,8 +43,8 @@ export const itemsSlice = createSlice({
         state.error = error;
       } 
       else {
-        state.itemNumbers = itemNumbers;
-        state.assemblyNumbers = assemblyNumbers;
+        state.itemNumbers = itemNumbers
+        state.assemblyNumbers = assemblyNumbers
       }
     },
     [listItemSku.rejected]: (state, action) => {

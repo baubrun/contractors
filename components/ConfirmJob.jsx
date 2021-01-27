@@ -11,16 +11,16 @@ const ConfirmJob = (props) => {
   const { job } = useSelector(jobState);
 
   return (
-    <List>
-      <ListItem>
-        <Text> {JSON.stringify(job)}</Text>
-      </ListItem>
-      <ListItem>
-        <Button full primary onPress={() => props.handleSubmit()}>
-          <Text>SUBMIT JOB</Text>
-        </Button>
-      </ListItem>
-    </List>
+    <>
+      <List>
+        <ListItem>
+          <Text> {JSON.stringify(job)}</Text>
+        </ListItem>
+      </List>
+      <Button full onPress={() => props.handleSubmit()}>
+        <Text>SUBMIT JOB</Text>
+      </Button>
+    </>
   );
 };
 
