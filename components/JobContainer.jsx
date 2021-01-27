@@ -79,7 +79,6 @@ const JobContainer = () => {
   const handleSubmit = () => {
     dispatch(createJob())
     resetValues();
-    dispatch(clearJob())
   };
 
   useEffect(() => {

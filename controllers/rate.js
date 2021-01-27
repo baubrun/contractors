@@ -1,9 +1,9 @@
-const Rates = require("../models/rates");
+const Rate = require("../models/rate");
 
 
 const listRates = async (req, res) => {
     try {
-      const rates = await Rates.find({})
+      const rates = await Rate.find({})
       return res.status(200).json({
         rates
       });

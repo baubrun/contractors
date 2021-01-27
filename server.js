@@ -3,9 +3,10 @@ const app = express()
 const cors = require("cors")
 const mongoose = require('mongoose');
 const config = require("./config/index")
-const ratesRoutes = require("./routes/ratesRoutes")
+const rateRoutes = require("./routes/rateRoutes")
 const storeRoutes = require("./routes/storeRoutes")
 const itemRoutes = require("./routes/itemRoutes")
+const jobRoutes = require("./routes/jobRoutes")
 
 
 
@@ -32,7 +33,8 @@ app.use(cors())
 
 app.use("/", itemRoutes)
 app.use("/", storeRoutes)
-app.use("/", ratesRoutes)
+app.use("/", rateRoutes)
+app.use("/", jobRoutes)
 
 
 /* =======================

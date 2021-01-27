@@ -1,9 +1,9 @@
-const Stores = require("../models/stores");
+const Store = require("../models/store");
 
 
 const listStores = async (req, res) => {
     try {
-      const stores = await Stores.find({})
+      const stores = await Store.find({})
       return res.status(200).json({
         stores
       });

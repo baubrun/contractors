@@ -1,24 +1,29 @@
 import axios from "axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { domain } from "../api";
+import {
+  createSlice,
+  createAsyncThunk
+} from "@reduxjs/toolkit";
+import {
+  domain
+} from "../api";
 
 
 
 export const createJob = createAsyncThunk(
-    "/job/create", 
-    async ( _ ,thunkApi) => {
-  try {
-    const res = await axios.post(`${domain}/api/job`,
-    {
-      job: thunkApi.getState().job
-    });
-    return res.data
-  } catch (error) {
-    return {
-      error: error.response.data.error
-    };
-  }
-});
+  "/job/create",
+  async (_, thunkApi) => {
+    console.log('thunkApi :>> ', thunkApi.getState().job);
+    try {
+      const res = await axios.post(`${domain}/api/job`, {
+        job: thunkApi.getState().job
+      });
+      return res.data
+    } catch (error) {
+      return {
+        error: error.response.data.error
+      };
+    }
+  });
 
 const jobInitState = {
   items: [],
@@ -54,11 +59,12 @@ export const jobSlice = createSlice({
     },
     [createJob.fulfilled]: (state, action) => {
       state.loading = false;
-      const { error } = action.payload;
+      const {
+        error
+      } = action.payload;
       if (error) {
         state.error = error;
-      } 
-      else {
+      } else {
         state.job = jobInitState;
       }
     },
@@ -66,11 +72,16 @@ export const jobSlice = createSlice({
       state.loading = false;
       state.error = action.error;
     },
-    
-   
+
+
   },
 });
 
-export const { clearError, clearJob, addItems, addJob } = jobSlice.actions;
+export const {
+  clearError,
+  clearJob,
+  addItems,
+  addJob
+} = jobSlice.actions;
 export const jobState = (state) => state.job;
 export default jobSlice.reducer;

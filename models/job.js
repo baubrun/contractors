@@ -13,6 +13,11 @@ const JobSchema = new Schema({
         required: true,
         trim: true
     },
+    storeNumber: {
+        type: String,
+        required: true,
+        trim: true
+    },
     PO: {
         type: Number,
         required: true,
@@ -25,17 +30,27 @@ const JobSchema = new Schema({
     notes: {
         type: String,
         required: true,
-        trim: true
     },
     items: [{
-        itemDescription: String,
-        assemblySku: String,
-        itemSku: String,
-        qty: Number
+        itemDescription: {
+            type: String,
+            required: true,
+        },
+        assemblySku: {
+            type: String,
+            required: true,
+
+        },
+        itemSku: {
+            type: String,
+            required: true,
+
+        },
+        qty: {
+            type: Number,
+            required: true,
+        }
     }],
-    required: true,
-
-
 })
 
 

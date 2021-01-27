@@ -1,4 +1,4 @@
-const Items = require("../models/items");
+const Item = require("../models/item");
 
 
 const read = async (req, res) => {
@@ -8,7 +8,7 @@ const read = async (req, res) => {
         itemSku
     } = req.body
     try {
-        const item = await Items.findOne({
+        const item = await Item.findOne({
             tier: tier,
             "$or": [{
                     "assemblySku": assemblySku
@@ -32,8 +32,8 @@ const read = async (req, res) => {
 
 const listItemSku = async (req, res) => {
     try {
-      const itemNumbers = await Items.distinct("itemSku")
-      const assemblyNumbers = await Items.distinct("assemblySku")
+      const itemNumbers = await Item.distinct("itemSku")
+      const assemblyNumbers = await Item.distinct("assemblySku")
             
       return res.status(200).json({
         itemNumbers,

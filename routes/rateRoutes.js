@@ -1,12 +1,12 @@
 const express = require("express");
-const ratesController = require("../controllers/rates")
+const rateController = require("../controllers/rate")
 
 const router = express.Router()
 
 
 router.route("/api/rates")
   .get(
-    ratesController.listRates,
+    rateController.listRates,
     )
 
   
