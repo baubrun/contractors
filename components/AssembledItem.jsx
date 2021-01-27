@@ -102,6 +102,8 @@ export const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   section: {
-    paddingLeft: "25%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

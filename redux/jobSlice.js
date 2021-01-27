@@ -31,13 +31,13 @@ const jobInitState = {
   storeNumber: "",
   date: "",
   items: [],
-
+  notes: ""
 }
 
 export const jobSlice = createSlice({
   name: "job",
   initialState: {
-    confirmation: "",
+    success: false,
     job: jobInitState,
     error: "",
     loading: false,
