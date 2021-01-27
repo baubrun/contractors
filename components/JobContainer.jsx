@@ -23,6 +23,7 @@ const defaultState = {
   storeNumber: "",
   date: new Date(),
   storeNumber: "",
+  notes: "",
 }
 
 

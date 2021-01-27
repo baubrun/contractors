@@ -8,8 +8,6 @@ import {
   Text,
   List,
   ListItem,
-  Textarea,
-  Form,
 } from "native-base";
 
 import { jobState } from "../redux/jobSlice";
@@ -67,17 +65,8 @@ const ConfirmJob = (props) => {
               </React.Fragment>
             );
           })}
-        <ListItem itemDivider>
-          <Text>NOTES</Text>
-        </ListItem>
       </List>
 
-      <Textarea
-        style={styles.notes}
-        rowSpan={10}
-        bordered
-        placeholder="NOTES..."
-      />
 
       <Button full onPress={() => props.handleSubmit()}>
         <Text>SUBMIT JOB</Text>
@@ -93,9 +82,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  notes: {
-    margin: 10,
   },
   itemCount: {
     color: "blue",

@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "./Select";
 import { StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { getValues, sortedArray } from "../utils";
-import { Input, Label, Item, Content, Form, Button, Text } from "native-base";
+import {
+  Input,
+  Label,
+  Item,
+  Content,
+  Form,
+  Button,
+  Text,
+  Textarea,
+} from "native-base";
 
 const JobInformation = (props) => {
   const selectData = sortedArray(getValues(props.stores, "storeNumber"));
@@ -65,6 +74,15 @@ const JobInformation = (props) => {
               <Label>{props.values.date.toString().substring(4, 15)}</Label>
             </View>
           </Item>
+
+          <Textarea
+            style={styles.notes}
+            rowSpan={5}
+            bordered
+            onChangeText={(text) => props.setValues({...props.values, notes: text})}
+            placeholder="NOTES..."
+            value={props.values.notes}
+          />
         </Form>
       </Content>
     </>
@@ -93,4 +111,8 @@ export const styles = StyleSheet.create({
     marginRight: 100,
     color: "blue",
   },
+  notes: {
+    margin: 10,
+  },
+
 });
