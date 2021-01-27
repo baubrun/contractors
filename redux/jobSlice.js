@@ -12,11 +12,10 @@ import {
 export const createJob = createAsyncThunk(
   "/job/create",
   async (_, thunkApi) => {
-    console.log('thunkApi :>> ', thunkApi.getState().job);
     try {
-      const res = await axios.post(`${domain}/api/job`, {
-        job: thunkApi.getState().job
-      });
+      const res = await axios.post(`${domain}/api/jobs`, 
+        {...thunkApi.getState().job.job}
+      );
       return res.data
     } catch (error) {
       return {

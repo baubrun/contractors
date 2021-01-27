@@ -5,50 +5,51 @@ const Schema = mongoose.Schema
 const JobSchema = new Schema({
     firstName: {
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     lastName: {
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     storeNumber: {
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     PO: {
         type: Number,
-        required: true,
+        // required: true,
         trim: true
     },
     date: {
         type: Date,
-        required: true,
+        // required: true,
     },
     notes: {
         type: String,
         required: true,
+        trim: true,
     },
     items: [{
         itemDescription: {
             type: String,
-            required: true,
+            // required: true,
         },
         assemblySku: {
             type: String,
-            required: true,
+            // required: true,
 
         },
         itemSku: {
             type: String,
-            required: true,
+            // required: true,
 
         },
         qty: {
             type: Number,
-            required: true,
+            // required: true,
         }
     }],
 })
