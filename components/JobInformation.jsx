@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Select from "./Select";
 import { StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -15,8 +16,41 @@ import {
   Textarea,
 } from "native-base";
 
+import { jobState, addItems, addInfo } from "../redux/jobSlice";
+import { storesState } from "../redux/storeSlice";
+
+const jobInfoInitState = {
+  firstName: "",
+  lastName: "",
+  storeNumber: "",
+  date: new Date(),
+  notes: "",
+};
+
 const JobInformation = (props) => {
-  const selectData = sortedArray(getValues(props.stores, "storeNumber"));
+  const dispatch = useDispatch();
+  const { stores, loading } = useSelector(storesState);
+  const { job } = useSelector(jobState);
+  const [show, setShow] = useState(false);
+  const [values, setValues] = useState(jobInfoInitState);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || values.date;
+    setShow(Platform.OS === "ios");
+    setValues({ ...values, date: currentDate });
+  };
+
+  useEffect(() => {
+    setValues({
+      firstName: job.firstName,
+      lastName: job.lastName,
+      date: values.date,
+      storeNumber: job.storeNumber,
+      notes: job.notes,
+    });
+  }, [job]);
+
+  const selectData = sortedArray(getValues(stores, "storeNumber"));
 
   return (
     <>
@@ -27,9 +61,9 @@ const JobInformation = (props) => {
             <Input
               style={styles.inputs}
               onChangeText={(text) =>
-                props.setValues({ ...props.values, firstName: text })
+                setValues({ ...values, firstName: text })
               }
-              value={props.values.firstName}
+              value={values.firstName}
             />
           </Item>
 
@@ -37,9 +71,9 @@ const JobInformation = (props) => {
             <Label style={styles.label}>Last Name</Label>
             <Input
               onChangeText={(text) =>
-                props.setValues({ ...props.values, lastName: text })
+                setValues({ ...values, lastName: text })
               }
-              value={props.values.lastName}
+              value={values.lastName}
             />
           </Item>
 
@@ -48,30 +82,30 @@ const JobInformation = (props) => {
             <Select
               data={selectData}
               item="storeNumber"
-              selected={props.values.storeNumber}
-              setSelected={props.setValues}
-              values={props.values}
+              selected={values.storeNumber}
+              setSelected={setValues}
+              values={values}
             />
           </Item>
 
           <Item style={styles.inputs}>
             <View style={styles.dateLabel}>
-              <Button onPress={() => props.setShow(true)}>
+              <Button onPress={() => setShow(true)}>
                 <Text>change date</Text>
               </Button>
             </View>
-            {props.show && (
+            {show && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={props.values.date}
+                value={values.date}
                 mode="date"
                 display="default"
-                onChange={props.onChange}
+                onChange={onChange}
               />
             )}
 
             <View>
-              <Label>{props.values.date.toString().substring(4, 15)}</Label>
+              <Label>{values.date.toString().substring(4, 15)}</Label>
             </View>
           </Item>
 
@@ -79,10 +113,22 @@ const JobInformation = (props) => {
             style={styles.notes}
             rowSpan={5}
             bordered
-            onChangeText={(text) => props.setValues({...props.values, notes: text})}
+            onChangeText={(text) =>
+              setValues({ ...values, notes: text })
+            }
             placeholder="NOTES..."
-            value={props.values.notes}
+            value={values.notes}
           />
+
+          <Button onPress={() => 
+            {
+              props.navigation.navigate("Items");
+              dispatch(addInfo(values))
+            }
+            
+            }>
+            <Text>NEXT</Text>
+          </Button>
         </Form>
       </Content>
     </>
@@ -114,5 +160,4 @@ export const styles = StyleSheet.create({
   notes: {
     margin: 10,
   },
-
 });

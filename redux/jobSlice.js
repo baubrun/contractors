@@ -13,9 +13,9 @@ export const createJob = createAsyncThunk(
   "/job/create",
   async (_, thunkApi) => {
     try {
-      const res = await axios.post(`${domain}/api/jobs`, 
-        {...thunkApi.getState().job.job}
-      );
+      const res = await axios.post(`${domain}/api/jobs`, {
+        ...thunkApi.getState().job.job
+      });
       return res.data
     } catch (error) {
       return {
@@ -25,7 +25,13 @@ export const createJob = createAsyncThunk(
   });
 
 const jobInitState = {
+  firstName: "",
+  lastName: "",
+  PO: "",
+  date: null,
+  notes: "",
   items: [],
+
 }
 
 export const jobSlice = createSlice({
@@ -38,12 +44,14 @@ export const jobSlice = createSlice({
     loading: false,
   },
   reducers: {
-    addItems: (state, action) => {
+    addInfo: (state, action) => {
       state.job = {
-        date: action.payload.date,
-        ...action.payload.jobInfo,
-        items: [...state.job.items, action.payload.items]
+        ...state.job,
+        ...action.payload
       }
+    },
+    addItems: (state, action) => {
+      state.job.items = [...state.job.items, action.payload]
     },
     clearError: (state) => {
       state.error = ""
@@ -51,7 +59,7 @@ export const jobSlice = createSlice({
     clearJob: (state) => {
       state.job = jobInitState
       state.success = false,
-      state.confirmation = ""
+        state.confirmation = ""
     },
   },
   extraReducers: {
@@ -87,7 +95,7 @@ export const {
   clearError,
   clearJob,
   addItems,
-  addJob
+  addInfo
 } = jobSlice.actions;
 export const jobState = (state) => state.job;
 export default jobSlice.reducer;

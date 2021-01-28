@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
 import {
   Input,
@@ -12,11 +12,29 @@ import {
 } from "native-base";
 
 import { itemsState } from "../redux/itemsSlice";
+import { addItems } from "../redux/jobSlice";
 import Select from "./Select";
 
+const defaultItemsState = {
+  qty: "",
+  assemblySku: "",
+  itemSku: "",
+  itemDescription: "",
+};
 
 const AssembledItem = (props) => {
+  const dispatch = useDispatch();
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
+  const [values, setValues] = useState(defaultItemsState);
+
+  // useEffect(() => {
+  //   setValues({
+  //     PO: job.PO,
+  //     qty: job.qty,
+  //     assemblySku: job.assemblySku,
+  //     itemSku: job.itemSku,
+  //   });
+  // }, [job]);
 
   return (
     <Content>
@@ -25,10 +43,8 @@ const AssembledItem = (props) => {
           <Label style={styles.label}>PO #</Label>
           <Input
             keyboardType="numeric"
-            onChangeText={(text) =>
-              props.setValues({ ...props.values, PO: text })
-            }
-            value={props.values.PO}
+            onChangeText={(text) => setValues({ ...values, PO: text })}
+            value={values.PO}
           />
         </ListItem>
 
@@ -39,9 +55,9 @@ const AssembledItem = (props) => {
           <Label style={styles.label}>item name</Label>
           <Input
             onChangeText={(text) =>
-              props.setValues({ ...props.values, itemDescription: text })
+              setValues({ ...values, itemDescription: text })
             }
-            value={props.values.itemDescription}
+            value={values.itemDescription}
           />
         </ListItem>
 
@@ -50,9 +66,9 @@ const AssembledItem = (props) => {
           <Select
             data={assemblyNumbers}
             item="assemblySku"
-            selected={props.values.assemblySku}
-            setSelected={props.setValues}
-            values={props.values}
+            selected={values.assemblySku}
+            setSelected={setValues}
+            values={values}
           />
         </ListItem>
 
@@ -61,9 +77,9 @@ const AssembledItem = (props) => {
           <Select
             data={itemNumbers}
             item="itemSku"
-            selected={props.values.itemSku}
-            setSelected={props.setValues}
-            values={props.values}
+            selected={values.itemSku}
+            setSelected={setValues}
+            values={values}
           />
         </ListItem>
 
@@ -71,16 +87,17 @@ const AssembledItem = (props) => {
           <Label style={styles.label}>qty</Label>
           <Input
             keyboardType="numeric"
-            onChangeText={(text) =>
-              props.setValues({ ...props.values, qty: text })
-            }
-            value={props.values.qty}
+            onChangeText={(text) => setValues({ ...values, qty: text })}
+            value={values.qty}
           />
         </ListItem>
       </List>
       <Button
         full
-        onPress={() => props.addItems()}
+        onPress={() => {
+          props.navigation.navigate("Confirm");
+          dispatch(addItems(values));
+        }}
       >
         <Text>Add Item</Text>
       </Button>
