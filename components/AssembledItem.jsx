@@ -27,14 +27,11 @@ const AssembledItem = (props) => {
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
   const [values, setValues] = useState(defaultItemsState);
 
-  // useEffect(() => {
-  //   setValues({
-  //     PO: job.PO,
-  //     qty: job.qty,
-  //     assemblySku: job.assemblySku,
-  //     itemSku: job.itemSku,
-  //   });
-  // }, [job]);
+
+
+  const reset = () => {
+    setValues(defaultItemsState);
+  };
 
   return (
     <Content>
@@ -93,13 +90,27 @@ const AssembledItem = (props) => {
         </ListItem>
       </List>
       <Button
+      style={styles.btn}
         full
         onPress={() => {
-          props.navigation.navigate("Confirm");
           dispatch(addItems(values));
+          reset()
         }}
       >
         <Text>Add Item</Text>
+      </Button>
+
+      <Button
+      success
+      style={styles.btn}
+        full
+        onPress={() => {
+          dispatch(addItems(values));
+          reset()
+          props.navigation.navigate("Confirm");
+        }}
+      >
+        <Text>NEXT</Text>
       </Button>
     </Content>
   );
@@ -123,4 +134,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  btn: {
+    marginVertical: 5,
+  }
 });

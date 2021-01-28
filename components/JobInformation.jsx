@@ -56,8 +56,6 @@ const JobInformation = (props) => {
   }
 
 
-
-
   useFocusEffect(
     useCallback(() => {
       setValues({
@@ -69,22 +67,15 @@ const JobInformation = (props) => {
       });
 
       return () => {
-        reset();
       };
     }, [job])
   );
 
-  // useEffect(() => {
-  //   setValues({
-  //     firstName: job.firstName,
-  //     lastName: job.lastName,
-  //     storeNumber: job.lastName,
-  //     date: moment(job.date).toDate(),
-  //     // date: new Date(),
-  //     notes: job.lastName,
+  const disableBtn = (keys) => {
+    const falsy = (val) => Boolean(val) === false
+    return keys.some(falsy)
+  }
 
-  //   })
-  // }, [job])
 
   const reset = () => {
     setValues(jobInfoInitState);
@@ -155,6 +146,17 @@ const JobInformation = (props) => {
           />
 
           <Button
+          disabled={
+            disableBtn(
+              [
+                values.firstName,
+                values.lastName,
+                values.storeNumber
+              ]
+            )
+          }
+          full
+          success
             onPress={() => {
               dispatch(
                 addInfo({
