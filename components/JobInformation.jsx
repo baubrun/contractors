@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Select from "./Select";
 import { StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "@react-navigation/native";
 import { getValues, sortedArray } from "../utils";
 import {
   Input,
@@ -17,10 +17,9 @@ import {
 } from "native-base";
 
 import { jobState, addItems, addInfo } from "../redux/jobSlice";
-import moment from "moment"
+import moment from "moment";
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
-
 
 const jobInfoInitState = {
   firstName: "",
@@ -46,16 +45,50 @@ const JobInformation = (props) => {
 
   useEffect(() => {
     dispatch(listStores());
-    dispatch(listItemSku()); 
-  }, [])
+    dispatch(listItemSku());
+  }, []);
 
-   
+  const dateString = (date) => {
+    if (!date){
+      return moment().toDate()
+    }
+    return moment(date).toDate()
+  }
+
+
+
+
+  useFocusEffect(
+    useCallback(() => {
+      setValues({
+        firstName: job.firstName,
+        lastName: job.lastName,
+        storeNumber: job.storeNumber,
+        date: dateString(job.date),
+        notes: job.notes,
+      });
+
+      return () => {
+        reset();
+      };
+    }, [job])
+  );
+
+  // useEffect(() => {
+  //   setValues({
+  //     firstName: job.firstName,
+  //     lastName: job.lastName,
+  //     storeNumber: job.lastName,
+  //     date: moment(job.date).toDate(),
+  //     // date: new Date(),
+  //     notes: job.lastName,
+
+  //   })
+  // }, [job])
 
   const reset = () => {
     setValues(jobInfoInitState);
   };
-
-
 
   const selectData = sortedArray(getValues(stores, "storeNumber"));
 
@@ -67,9 +100,7 @@ const JobInformation = (props) => {
             <Label style={styles.label}>First Name</Label>
             <Input
               style={styles.inputs}
-              onChangeText={(text) =>
-                setValues({ ...values, firstName: text })
-              }
+              onChangeText={(text) => setValues({ ...values, firstName: text })}
               value={values.firstName}
             />
           </Item>
@@ -77,9 +108,7 @@ const JobInformation = (props) => {
           <Item style={styles.inputs}>
             <Label style={styles.label}>Last Name</Label>
             <Input
-              onChangeText={(text) =>
-                setValues({ ...values, lastName: text })
-              }
+              onChangeText={(text) => setValues({ ...values, lastName: text })}
               value={values.lastName}
             />
           </Item>
@@ -120,24 +149,22 @@ const JobInformation = (props) => {
             style={styles.notes}
             rowSpan={5}
             bordered
-            onChangeText={(text) =>
-              setValues({ ...values, notes: text })
-            }
+            onChangeText={(text) => setValues({ ...values, notes: text })}
             placeholder="NOTES..."
             value={values.notes}
           />
 
-          <Button onPress={() => 
-            {
-              dispatch(addInfo({
-                ...values,
-                date: moment(values.date).format("L")
-              }));
-              reset()
+          <Button
+            onPress={() => {
+              dispatch(
+                addInfo({
+                  ...values,
+                  date: moment(values.date).format(),
+                })
+              );
               props.navigation.navigate("Items");
-            }
-            
-            }>
+            }}
+          >
             <Text>NEXT</Text>
           </Button>
         </Form>
