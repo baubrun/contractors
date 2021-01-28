@@ -29,7 +29,7 @@ const JobSchema = new Schema({
     },
     notes: {
         type: String,
-        required: true,
+        // required: true,
         trim: true,
     },
     items: [{

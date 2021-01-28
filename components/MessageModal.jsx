@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Alert,
   Modal,
@@ -8,7 +9,13 @@ import {
   View,
 } from "react-native";
 
+import { clearJob, } from "../redux/jobSlice";
+
+
 const MessageModal = (props) => {
+  const dispatch = useDispatch();
+
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -23,6 +30,7 @@ const MessageModal = (props) => {
               style={{ ...styles.openButton, backgroundColor: "blue" }}
               onPress={() => {
                 props.setModalVisible(!props.modalVisible);
+                dispatch(clearJob())
               }}
             >
               <Text style={styles.textStyle}>OK</Text>

@@ -8,20 +8,35 @@ import { jobState } from "../redux/jobSlice";
 import MessageModal from "./MessageModal";
 
 const ConfirmJob = (props) => {
-  const { job, success } = useSelector(jobState);
-  const [modalVisible, setModalVisible] = useState(true);
+  const { job, success, message } = useSelector(jobState);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setModalVisible(success)
+  }, [success]);
 
   if (job.items < 1) {
     return (
-      <Container>
+      <Container style={styles.section}>
         <Text>ADD JOB ITEMS.</Text>
       </Container>
     );
-  }
+    }
+    
+    if (modalVisible){
+      <MessageModal 
+      modalVisible={modalVisible}
+      message={`job Id: ${message.slice(-4)}`}
+      setModalVisible={setModalVisible}
+      />
+  
+  
+    }
+
 
   return (
+    <>
+
     <Content>
       <List scrollEnabled>
         <ListItem>
@@ -72,6 +87,7 @@ const ConfirmJob = (props) => {
         <Text>SUBMIT JOB</Text>
       </Button>
     </Content>
+        </>
   );
 };
 
