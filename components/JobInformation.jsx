@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from "./Select";
 import { StyleSheet, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import { useFocusEffect } from '@react-navigation/native';
 import { getValues, sortedArray } from "../utils";
 import {
   Input,
@@ -17,13 +17,17 @@ import {
 } from "native-base";
 
 import { jobState, addItems, addInfo } from "../redux/jobSlice";
-import { storesState } from "../redux/storeSlice";
+import moment from "moment"
+import { listStores, storesState } from "../redux/storeSlice";
+import { listItemSku } from "../redux/itemsSlice";
+
 
 const jobInfoInitState = {
   firstName: "",
   lastName: "",
   storeNumber: "",
-  date: new Date(),
+  date: moment().toDate(),
+  // date: new Date(),
   notes: "",
 };
 
@@ -41,14 +45,17 @@ const JobInformation = (props) => {
   };
 
   useEffect(() => {
-    setValues({
-      firstName: job.firstName,
-      lastName: job.lastName,
-      date: values.date,
-      storeNumber: job.storeNumber,
-      notes: job.notes,
-    });
-  }, [job]);
+    dispatch(listStores());
+    dispatch(listItemSku()); 
+  }, [])
+
+   
+
+  const reset = () => {
+    setValues(jobInfoInitState);
+  };
+
+
 
   const selectData = sortedArray(getValues(stores, "storeNumber"));
 
@@ -122,8 +129,12 @@ const JobInformation = (props) => {
 
           <Button onPress={() => 
             {
+              dispatch(addInfo({
+                ...values,
+                date: moment(values.date).format("L")
+              }));
+              reset()
               props.navigation.navigate("Items");
-              dispatch(addInfo(values))
             }
             
             }>

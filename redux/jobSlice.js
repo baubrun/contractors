@@ -28,7 +28,7 @@ const jobInitState = {
   firstName: "",
   lastName: "",
   PO: "",
-  date: null,
+  date: "",
   notes: "",
   items: [],
 
