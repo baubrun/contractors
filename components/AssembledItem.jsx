@@ -16,10 +16,10 @@ import { addItems } from "../redux/jobSlice";
 import Select from "./Select";
 
 const defaultItemsState = {
-  qty: "",
   assemblySku: "",
   itemSku: "",
   itemDescription: "",
+  qty: "",
 };
 
 const AssembledItem = (props) => {
@@ -36,14 +36,6 @@ const AssembledItem = (props) => {
   return (
     <Content>
       <List>
-        <ListItem>
-          <Label style={styles.label}>PO #</Label>
-          <Input
-            keyboardType="numeric"
-            onChangeText={(text) => setValues({ ...values, PO: text })}
-            value={values.PO}
-          />
-        </ListItem>
 
         <ListItem itemDivider style={styles.section}>
           <Text>ENTER ITEM NAME OR A SKU #</Text>

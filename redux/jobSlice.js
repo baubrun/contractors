@@ -91,8 +91,6 @@ export const jobSlice = createSlice({
       state.loading = false;
       state.error = action.error;
     },
-
-
   },
 });
 

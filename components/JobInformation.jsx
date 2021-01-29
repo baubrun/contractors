@@ -16,17 +16,17 @@ import {
   Textarea,
 } from "native-base";
 
-import { jobState, addItems, addInfo } from "../redux/jobSlice";
+import { jobState, addInfo } from "../redux/jobSlice";
 import moment from "moment";
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
-
-import {disableBtn} from "../utils"
+import { disableBtn } from "../utils";
 
 const jobInfoInitState = {
   firstName: "",
   lastName: "",
   storeNumber: "",
+  PO: "",
   date: moment().toDate(),
   notes: "",
 };
@@ -50,12 +50,11 @@ const JobInformation = (props) => {
   }, []);
 
   const dateString = (date) => {
-    if (!date){
-      return moment().toDate()
+    if (!date) {
+      return moment().toDate();
     }
-    return moment(date).toDate()
-  }
-
+    return moment(date).toDate();
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -63,12 +62,12 @@ const JobInformation = (props) => {
         firstName: job.firstName,
         lastName: job.lastName,
         storeNumber: job.storeNumber,
+        PO: job.PO,
         date: dateString(job.date),
         notes: job.notes,
       });
 
-      return () => {
-      };
+      return () => {};
     }, [job])
   );
 
@@ -111,6 +110,15 @@ const JobInformation = (props) => {
           </Item>
 
           <Item style={styles.inputs}>
+            <Label style={styles.label}>PO #</Label>
+            <Input
+              keyboardType="numeric"
+              onChangeText={(text) => setValues({ ...values, PO: text })}
+              value={values.PO}
+            />
+          </Item>
+
+          <Item style={styles.inputs}>
             <View style={styles.dateLabel}>
               <Button onPress={() => setShow(true)}>
                 <Text>change date</Text>
@@ -127,13 +135,13 @@ const JobInformation = (props) => {
             )}
 
             <View>
-              <Label>{values.date.toString().substring(4, 15)}</Label>
+              <Label>{moment(values.date).format("L")}</Label>
             </View>
           </Item>
 
           <Textarea
             style={styles.notes}
-            rowSpan={5}
+            rowSpan={4}
             bordered
             onChangeText={(text) => setValues({ ...values, notes: text })}
             placeholder="NOTES..."
@@ -141,16 +149,12 @@ const JobInformation = (props) => {
           />
 
           <Button
-          disabled={
-           disableBtn(
-              [
-                values.firstName,
-                values.lastName,
-                values.storeNumber
-              ]
-            )
-          }
-          full
+            disabled={disableBtn([
+              values.firstName,
+              values.lastName,
+              values.storeNumber,
+            ])}
+            full
             onPress={() => {
               dispatch(
                 addInfo({
@@ -174,11 +178,11 @@ export default JobInformation;
 export const styles = StyleSheet.create({
   dateLabel: {
     marginRight: 100,
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
 
   inputs: {
-    marginVertical: 10,
+    marginVertical: 5,
     marginRight: 20,
     paddingHorizontal: 10,
   },
