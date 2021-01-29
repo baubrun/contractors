@@ -14,6 +14,7 @@ import {
 import { itemsState } from "../redux/itemsSlice";
 import { addItems } from "../redux/jobSlice";
 import Select from "./Select";
+import { disableBtn } from "../utils";
 
 const defaultItemsState = {
   assemblySku: "",
@@ -93,6 +94,12 @@ const AssembledItem = (props) => {
       </Button>
 
       <Button
+      disabled={disableBtn(
+        [
+          values.itemDescription,
+          values.assemblySku
+        ]
+        )}
       success
       style={styles.btn}
         full

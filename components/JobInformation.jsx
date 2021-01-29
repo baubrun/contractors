@@ -180,7 +180,6 @@ export const styles = StyleSheet.create({
     marginRight: 100,
     paddingVertical: 5,
   },
-
   inputs: {
     marginVertical: 5,
     marginRight: 20,

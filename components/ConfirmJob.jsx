@@ -22,13 +22,13 @@ const ConfirmJob = (props) => {
     dispatch(createJob());
   };
 
-  if (job.items < 1) {
-    return (
-      <Container style={styles.section}>
-        <Text>ADD JOB ITEMS.</Text>
-      </Container>
-    );
-  }
+  // if (job.items < 1 && !modalVisible) {
+  //   return (
+  //     <Container style={styles.section}>
+  //       <Text>ADD JOB ITEMS.</Text>
+  //     </Container>
+  //   );
+  // }
 
   if (modalVisible) {
     <MessageModal
