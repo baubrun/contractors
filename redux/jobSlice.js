@@ -31,7 +31,7 @@ const jobInitState = {
   date: "",
   notes: "",
   items: [],
-
+  storeNumber: "",
 }
 
 export const jobSlice = createSlice({
@@ -55,6 +55,11 @@ export const jobSlice = createSlice({
     },
     clearError: (state) => {
       state.error = ""
+    },
+    clearJob: (state) => {
+      state.job = jobInitState
+      state.success = false,
+        state.confirmation = ""
     },
     clearJob: (state) => {
       state.job = jobInitState
@@ -92,10 +97,10 @@ export const jobSlice = createSlice({
 });
 
 export const {
+  addItems,
+  addInfo,
   clearError,
   clearJob,
-  addItems,
-  addInfo
 } = jobSlice.actions;
 export const jobState = (state) => state.job;
 export default jobSlice.reducer;

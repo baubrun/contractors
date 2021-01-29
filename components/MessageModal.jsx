@@ -31,6 +31,7 @@ const MessageModal = (props) => {
               onPress={() => {
                 props.setModalVisible(!props.modalVisible);
                 dispatch(clearJob())
+                props.redirect("JobInfo")
               }}
             >
               <Text style={styles.textStyle}>OK</Text>

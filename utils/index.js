@@ -10,6 +10,14 @@ export const compare = (a, b) => {
 }
 
 
+
+export const disableBtn = (keys) => {
+    const falsy = (val) => Boolean(val) === false
+    return keys.some(falsy)
+  }
+
+
+
 export const sortedArray = (items) => {
 
     const compare = (a, b) => {
@@ -19,3 +27,5 @@ export const sortedArray = (items) => {
     return items.sort(compare)
 
 }
+
+

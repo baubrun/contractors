@@ -21,12 +21,13 @@ import moment from "moment";
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
 
+import {disableBtn} from "../utils"
+
 const jobInfoInitState = {
   firstName: "",
   lastName: "",
   storeNumber: "",
   date: moment().toDate(),
-  // date: new Date(),
   notes: "",
 };
 
@@ -70,12 +71,6 @@ const JobInformation = (props) => {
       };
     }, [job])
   );
-
-  const disableBtn = (keys) => {
-    const falsy = (val) => Boolean(val) === false
-    return keys.some(falsy)
-  }
-
 
   const reset = () => {
     setValues(jobInfoInitState);
@@ -147,7 +142,7 @@ const JobInformation = (props) => {
 
           <Button
           disabled={
-            disableBtn(
+           disableBtn(
               [
                 values.firstName,
                 values.lastName,
@@ -156,7 +151,6 @@ const JobInformation = (props) => {
             )
           }
           full
-          success
             onPress={() => {
               dispatch(
                 addInfo({
