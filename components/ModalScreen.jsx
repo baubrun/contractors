@@ -11,6 +11,7 @@ import {
 
 const MessageModal = (props) => {
 
+
   return (
     <View style={styles.centeredView}>
       <Modal

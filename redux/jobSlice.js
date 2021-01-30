@@ -59,12 +59,7 @@ export const jobSlice = createSlice({
     clearJob: (state) => {
       state.job = jobInitState
       state.success = false,
-        state.confirmation = ""
-    },
-    clearJob: (state) => {
-      state.job = jobInitState
-      state.success = false,
-        state.confirmation = ""
+        state.message = ""
     },
   },
   extraReducers: {
