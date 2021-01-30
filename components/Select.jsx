@@ -13,7 +13,7 @@ const Select = (props) => {
         onValueChange={
           (val, idx) => props.setSelected({...props.values, [props.item]: val})}
       >
-        <Picker.Item label="" value="key0" />
+        <Picker.Item label="" value="" />
         {props.data.map((item, idx) => {
           return (
             <Picker.Item

@@ -4,15 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Content, Container, Button, Text, List, ListItem } from "native-base";
 
-import { jobState, createJob } from "../redux/jobSlice";
+import { jobState, createJob, clearError } from "../redux/jobSlice";
 import MessageModal from "./MessageModal";
 import moment from "moment";
 
 const ConfirmJob = (props) => {
   const dispatch = useDispatch();
-
   const { job, success, message } = useSelector(jobState);
   const [modalVisible, setModalVisible] = useState(false);
+
+
+  const redirectJobSuccess = () => {
+    dispatch(clearJob());
+    dispatch(clearError());
+    props.navigation.navigate("JobInfo");
+
+  }
+
 
   useEffect(() => {
     setModalVisible(success);
@@ -31,12 +39,14 @@ const ConfirmJob = (props) => {
   // }
 
   if (modalVisible) {
-    <MessageModal
-      modalVisible={modalVisible}
-      message={`job Id: ${message.slice(-4)}`}
-      setModalVisible={setModalVisible}
-      redirect={props.navigation.navigate}
-    />;
+    return (
+      <MessageModal
+        modalVisible={modalVisible}
+        message={`Job submitted successfully.\nJOB ID: ${message.slice(-4)}`}
+        setModalVisible={setModalVisible}
+        redirect={redirectJobSuccess}
+      />
+    );
   }
 
   return (

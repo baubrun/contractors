@@ -20,7 +20,7 @@ import { jobState, addInfo } from "../redux/jobSlice";
 import moment from "moment";
 import { listStores, storesState } from "../redux/storeSlice";
 import { listItemSku } from "../redux/itemsSlice";
-import { disableBtn } from "../utils";
+import { isFalsy, isTruthy } from "../utils";
 
 const jobInfoInitState = {
   firstName: "",
@@ -149,10 +149,11 @@ const JobInformation = (props) => {
           />
 
           <Button
-            disabled={disableBtn([
+            disabled={!isTruthy([
               values.firstName,
               values.lastName,
               values.storeNumber,
+              values.PO,
             ])}
             full
             onPress={() => {

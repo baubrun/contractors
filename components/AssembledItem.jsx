@@ -14,7 +14,7 @@ import {
 import { itemsState } from "../redux/itemsSlice";
 import { addItems } from "../redux/jobSlice";
 import Select from "./Select";
-import { disableBtn } from "../utils";
+import { isFalsy } from "../utils";
 
 const defaultItemsState = {
   assemblySku: "",
@@ -28,16 +28,25 @@ const AssembledItem = (props) => {
   const { assemblyNumbers, itemNumbers } = useSelector(itemsState);
   const [values, setValues] = useState(defaultItemsState);
 
-
-
   const reset = () => {
     setValues(defaultItemsState);
   };
 
+  const redirectConfirm = () => {
+    dispatch(addItems(values));
+    reset();
+    props.navigation.navigate("Confirm");
+  };
+
+  const addJobItem = () => {
+    dispatch(addItems(values));
+    reset();
+  };
+
+
   return (
     <Content>
       <List>
-
         <ListItem itemDivider style={styles.section}>
           <Text>ENTER ITEM NAME OR A SKU #</Text>
         </ListItem>
@@ -83,31 +92,31 @@ const AssembledItem = (props) => {
         </ListItem>
       </List>
       <Button
-      style={styles.btn}
+        disabled={
+          !Boolean(values.qty && isFalsy([
+            values.itemDescription,
+            values.itemSku,
+            values.assemblySku
+          ]))
+        }
+        style={styles.btn}
         full
-        onPress={() => {
-          dispatch(addItems(values));
-          reset()
-        }}
+        onPress={() => addJobItem()}
       >
         <Text>Add Item</Text>
       </Button>
 
       <Button
-      disabled={disableBtn(
-        [
-          values.itemDescription,
-          values.assemblySku
-        ]
-        )}
-      success
-      style={styles.btn}
+        disabled={
+          !Boolean(values.qty && isFalsy([
+            values.itemDescription,
+            values.itemSku,
+            values.assemblySku
+          ]))
+        }
         full
-        onPress={() => {
-          dispatch(addItems(values));
-          reset()
-          props.navigation.navigate("Confirm");
-        }}
+        onPress={() => redirectConfirm()}
+        style={styles.btn}
       >
         <Text>NEXT</Text>
       </Button>
@@ -135,5 +144,5 @@ export const styles = StyleSheet.create({
   },
   btn: {
     marginVertical: 5,
-  }
+  },
 });

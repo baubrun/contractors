@@ -11,9 +11,15 @@ export const compare = (a, b) => {
 
 
 
-export const disableBtn = (keys) => {
-    const falsy = (val) => Boolean(val) === false
+export const isFalsy = (keys) => {
+    const falsy = (val) => Boolean(val) === true
     return keys.some(falsy)
+  }
+
+
+export const isTruthy = (keys) => {
+    const isTrue = (val) => Boolean(val) === true
+    return keys.every(isTrue)
   }
 
 
